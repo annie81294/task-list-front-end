@@ -17,28 +17,43 @@ const TASKS = [
     id: 3,
     title: 'Go For a Walk',
     isComplete: true,
-  }
+  },
+  {
+    id: 4,
+    title: 'Go Grocery Shopping',
+    isComplete: true,
+  },
 ];
 
 const App = () => {
   const [tasks, setTasks] = useState(TASKS);
-
+  // Toggle a task
   const handleToggleComplete = (id) => {
-  setTasks((previousTasks) =>
-    previousTasks.map((task) =>
-      task.id === id
-        ? { ...task, isComplete: !task.isComplete }
-        : task
-    )
-   );
-    };
+    setTasks((previousTasks) =>
+      previousTasks.map((task) =>
+        task.id === id
+          ? { ...task, isComplete: !task.isComplete }
+          : task
+      )
+    );
+  };
+  // Delete a task
+  const handleDeleteTask = (id) => {
+    setTasks((previousTasks) =>
+      previousTasks.filter((task) => task.id !== id)
+    );
+  };
   return (
     <div className="App">
       <header className="App-header">
         <h1>Ada&apos;s Task List</h1>
       </header>
       <main>
-        <div>{<TaskList tasks={TASKS} handleToggleComplete = {handleToggleComplete} />}</div>
+        <div>{<TaskList 
+          tasks={tasks} 
+          handleToggleComplete = {handleToggleComplete} 
+          handleDeleteTask = {handleDeleteTask} />}
+        </div>
       </main>
     </div>
   );

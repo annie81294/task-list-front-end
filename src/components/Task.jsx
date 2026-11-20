@@ -2,7 +2,8 @@ import PropTypes from 'prop-types';
 
 import './Task.css';
 
-const Task = ({ id, title, isComplete, handleToggleComplete }) => {
+// eslint-disable-next-line react/prop-types
+const Task = ({ task, isComplete, handleToggleComplete, handleDeleteTask }) => {
   // const [complete, setComplete] = useState(isComplete);
   const buttonClass = isComplete ? 'tasks__item__toggle--completed' : '';
 
@@ -10,20 +11,25 @@ const Task = ({ id, title, isComplete, handleToggleComplete }) => {
     <li className="tasks__item">
       <button
         className={`tasks__item__toggle ${buttonClass}`}
-        onClick={() => handleToggleComplete(id)}
+        onClick={() => handleToggleComplete(task.id)}
       >
-        {isComplete ? "Undo" : "Complete"}
+        {task.title}
       </button>
-      <button className="tasks__item__remove button">x</button>
+      <button className="tasks__item__remove button" onClick={() => handleDeleteTask(task.id)}>
+        x
+      </button>
     </li>
   );
 };
 
 Task.propTypes = {
-  id: PropTypes.number.isRequired,
-  title: PropTypes.string.isRequired,
+  task: PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    title: PropTypes.string.isRequired,
+  }).isRequired,
   isComplete: PropTypes.bool.isRequired,
   handleToggleComplete: PropTypes.func.isRequired,
+  handleDeleteTask: PropTypes.func.isRequired,
 };
 
 export default Task;
